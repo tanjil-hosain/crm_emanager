@@ -8,7 +8,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h3 class="fw-bold mb-1">Dashboard</h3>
-            <p class="text-muted mb-0">Welcome to your CRM Dashboard</p>
+            <p class="text-muted mb-0">Welcome to your E-Manager Dashboard</p>
         </div>
 
         <span class="badge bg-primary p-2">
@@ -27,7 +27,7 @@
                         <div>
                             <p class="text-muted mb-1">Total Customers</p>
                             <h3 class="fw-bold mb-0">{{$totalCustomers}}</h3>
-                            <small class="text-success">Customer Overview</small>
+                            {{-- <small class="text-success">Customer Overview</small> --}}
                         </div>
                         <div class="bg-primary bg-opacity-10 rounded-3 p-3">
                             <i class="bi bi-people text-primary fs-3"></i>
@@ -44,7 +44,7 @@
                         <div>
                             <p class="text-muted mb-1">Total Leads</p>
                             <h3 class="fw-bold mb-0">{{$totalLeads}}</h3>
-                            <small class="text-info">Lead Overview</small>
+                            {{-- <small class="text-info">Lead Overview</small> --}}
                         </div>
                         <div class="bg-info bg-opacity-10 rounded-3 p-3">
                             <i class="bi bi-person-plus text-info fs-3"></i>
@@ -61,7 +61,7 @@
                         <div>
                             <p class="text-muted mb-1">Total Revenue</p>
                             <h3 class="fw-bold mb-0">{{ $todaySales }}</h3>
-                            <small class="text-success">Total Sales Amount</small>
+                            {{-- <small class="text-success">Total Sales Amount</small> --}}
                         </div>
                         <div class="bg-success bg-opacity-10 rounded-3 p-3">
                             <i class="bi bi-currency-dollar text-success fs-3"></i>
@@ -76,9 +76,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <p class="text-muted mb-1">Total Profit</p>
-                            <h3 class="fw-bold mb-0">৳1,25,000</h3>
-                            <small class="text-primary">Net Sales Profit</small>
+                            <p class="text-muted mb-1">Today Profit</p>
+                            <h3 class="fw-bold mb-0">৳{{$todayProfit}}</h3>
+                            {{-- <small class="text-primary">Today Sales Profit</small> --}}
                         </div>
                         <div class="bg-warning bg-opacity-10 rounded-3 p-3">
                             <i class="bi bi-graph-up-arrow text-warning fs-3"></i>
@@ -118,7 +118,7 @@
             <div class="card border-0 shadow-sm rounded-3">
                 <div class="card-body">
                     <p class="text-muted mb-1">This Month Profit</p>
-                    <h4 class="fw-bold">৳25,000</h4>
+                    <h4 class="fw-bold">{{$monthlyProfit}}</h4>
                     <i class="bi bi-piggy-bank text-primary fs-4"></i>
                 </div>
             </div>
@@ -198,6 +198,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+     const leadData = @json($leadsState);
 
     // Monthly Revenue & Cost
     new Chart(document.getElementById('revenueChart'), {
@@ -225,12 +226,13 @@
 
 
     // Leads Overview
+   
     new Chart(document.getElementById('leadChart'), {
         type: 'doughnut',
         data: {
             labels: ['New', 'Contacted', 'Qualified', 'Converted', 'Lost'],
             datasets: [{
-                data: [40, 25, 15, 12, 8],
+                data:leadData,
                 backgroundColor: [
                     '#0d6efd',
                     '#0dcaf0',

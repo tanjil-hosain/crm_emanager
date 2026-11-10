@@ -13,6 +13,15 @@ class DasboardController extends Controller
     public function index(){
         $totalCustomers= Customer::count();
 
+        //Leads chart
+        $leadsState=[
+            Lead::where('status','new')->count(),
+            Lead::where('status','contacted')->count(),
+            Lead::where('status','qualified')->count(),
+            Lead::where('status','converted')->count(),
+            Lead::where('status','lost')->count(),
+        ];
+
         $totalLeads = Lead::count();
         $newLeads = Lead::where('status','new')->count();
          // Today Sales
@@ -32,7 +41,7 @@ class DasboardController extends Controller
             ->whereYear('sold_at', now()->year)
             ->selectRaw('SUM(total_amount - total_cost) as profit')
             ->value('profit') ?? 0;
-        return view('crm_emanager.backend.dashboard', compact('totalCustomers','totalLeads','newLeads','todaySales', 'todayProfit',  'availableProducts', 'monthlyProfit' ));
+        return view('crm_emanager.backend.dashboard', compact('totalCustomers','leadsState','totalLeads','newLeads','todaySales', 'todayProfit',  'availableProducts', 'monthlyProfit' ));
     }
 
 
