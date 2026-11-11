@@ -61,6 +61,13 @@
                         </a>
                     </li>
                      <li class="sidebar-menu-item">
+                        <a href="{{ route('products.index') }}" class="sidebar-menu-link" id="menu-basictables"
+                            title="Basic Tables">
+                            <i class="bi bi-table"></i>
+                            <span>Product</span>
+                        </a>
+                    </li>
+                                         <li class="sidebar-menu-item">
                         <a href="{{ route('subcategory.index') }}" class="sidebar-menu-link" id="menu-basictables"
                             title="Basic Tables">
                             <i class="bi bi-table"></i>

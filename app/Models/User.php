@@ -32,7 +32,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function leads(){
-        return $this->hasMany(Lead::class);
+    public function assignedLeads(){
+        return $this->hasMany(Lead::class,'assigned_to');
     }
 }

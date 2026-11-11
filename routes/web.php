@@ -5,6 +5,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\SettingController;
@@ -93,6 +94,11 @@ Route::middleware('auth')->group(function () {
    //Subcategory
    Route::middleware('auth')->group(function(){
     Route::resource('subcategory', SubcategoryController::class);
+   });
+
+   //Products
+   Route::middleware('auth')->group(function(){
+    Route::resource('products', ProductController::class);
    });
 
 
