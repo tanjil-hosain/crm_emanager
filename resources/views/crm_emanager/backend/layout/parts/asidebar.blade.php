@@ -37,40 +37,54 @@
             <div class="sidebar-menu-section">
                 <div class="sidebar-menu-title">User Managment</div>
                 <ul class="sidebar-menu-list">
-                    @can('view users')
-                        <li class="sidebar-menu-item">
-                            <a href="{{ route('users.index') }}" class="sidebar-menu-link" id="menu-basictables"
-                                title="Basic Tables">
-                                <i class="bi bi-table"></i>
-                                <span>Userlist</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a href="{{ route('customers.index') }}" class="sidebar-menu-link" id="menu-basictables"
-                                title="Basic Tables">
-                                <i class="bi bi-table"></i>
-                                <span>Customerlist</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('roles')
-                        <li class="sidebar-menu-item">
-                            <a href="{{ route('role.create') }}" class="sidebar-menu-link" id="menu-basictables"
-                                title="Basic Tables">
-                                <i class="bi bi-table"></i>
-                                <span>Role</span>
-                            </a>
-                        </li>
-                    @endcan
-                    @can('permissions')
-                        <li class="sidebar-menu-item">
-                            <a href="{{ route('role.permission.create') }}" class="sidebar-menu-link" id="menu-basictables"
-                                title="Basic Tables">
-                                <i class="bi bi-table"></i>
-                                <span>Permission</span>
-                            </a>
-                        </li>
-                    @endcan
+                    {{-- @can('view users') --}}
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('users.index') }}" class="sidebar-menu-link" id="menu-basictables"
+                            title="Basic Tables">
+                            <i class="bi bi-table"></i>
+                            <span>Userlist</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('customers.index') }}" class="sidebar-menu-link" id="menu-basictables"
+                            title="Basic Tables">
+                            <i class="bi bi-table"></i>
+                            <span>Customerlist</span>
+                        </a>
+                    </li>
+                    {{-- @endcan --}}
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('category.index') }}" class="sidebar-menu-link" id="menu-basictables"
+                            title="Basic Tables">
+                            <i class="bi bi-table"></i>
+                            <span>Category</span>
+                        </a>
+                    </li>
+                     <li class="sidebar-menu-item">
+                        <a href="{{ route('subcategory.index') }}" class="sidebar-menu-link" id="menu-basictables"
+                            title="Basic Tables">
+                            <i class="bi bi-table"></i>
+                            <span>Subcategory</span>
+                        </a>
+                    </li>
+                    {{-- @can('roles') --}}
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('role.create') }}" class="sidebar-menu-link" id="menu-basictables"
+                            title="Basic Tables">
+                            <i class="bi bi-table"></i>
+                            <span>Role</span>
+                        </a>
+                    </li>
+                    {{-- @endcan --}}
+                    {{-- @can('permissions') --}}
+                    <li class="sidebar-menu-item">
+                        <a href="{{ route('role.permission.create') }}" class="sidebar-menu-link" id="menu-basictables"
+                            title="Basic Tables">
+                            <i class="bi bi-table"></i>
+                            <span>Permission</span>
+                        </a>
+                    </li>
+                    {{-- @endcan --}}
                     <li class="sidebar-menu-item">
                         <a href="{{ route('leads.index') }}" class="sidebar-menu-link" id="menu-uiforms"
                             title="Forms and Input">
@@ -91,6 +105,7 @@
                             <i class="bi bi-menu-button-wide-fill"></i>
                             <span>Settings</span>
                         </a>
+
                     </li>
                 </ul>
             </div>
