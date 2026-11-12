@@ -4,10 +4,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DasboardController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubcategoryController;
 // use App\Http\Controllers\ProfileController;
@@ -99,6 +101,16 @@ Route::middleware('auth')->group(function () {
    //Products
    Route::middleware('auth')->group(function(){
     Route::resource('products', ProductController::class);
+   });
+
+   //Sales
+   Route::middleware('auth')->group(function(){
+    Route::resource('sales', SaleController::class);
+   });
+
+   //Payment
+   Route::middleware('auth')->group(function(){
+    Route::resource('payments', PaymentController::class);
    });
 
 

@@ -38,7 +38,7 @@
                             <td>
                                 @if ($product->image)
                                     <img src="{{ asset('storage/' . $product->image) }}"
-                                        width="50" height="50" style="object-fit: cover;">
+                                        width="50" height="50" style="object-fit: contain;">
                                 @else
                                     No Image
                                 @endif

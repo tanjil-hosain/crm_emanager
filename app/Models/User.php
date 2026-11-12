@@ -35,4 +35,13 @@ class User extends Authenticatable
     public function assignedLeads(){
         return $this->hasMany(Lead::class,'assigned_to');
     }
+    
+    public function sales(){
+        return $this->hasMany(Sale::class, 'created_by');
+
+    }
+
+    public function recivedPayment(){
+        return $this->hasMany(Payment::class, 'received_by');
+    }
 }

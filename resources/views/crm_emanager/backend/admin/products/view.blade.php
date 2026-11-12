@@ -28,7 +28,7 @@
                         @if ($product->image)
                             <img src="{{ asset('storage/' . $product->image) }}"
                                 width="200" height="200"
-                                style="object-fit: cover; border-radius: 8px;">
+                                style="object-fit: contain; border-radius: 8px;">
                         @else
                             <p>No Image Available</p>
                         @endif

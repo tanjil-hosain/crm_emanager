@@ -8,11 +8,19 @@ class Sale extends Model
 {
     protected $fillable = ['invoice_number', 'customer_id', 'created_by', 'total_amount', 'total_cost', 'discount', 'tax', 'status', 'payment_status','sold_at', 'notes'  ];
 
-    public function sale_items(){
+    public function saleItems(){
         return $this->hasMany(SaleItem::class);
     }
 
-    public function customers(){
+    public function customer(){
         return $this->belongsTo(Customer::class);
+    }
+
+    public function creator(){
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
     }
 }

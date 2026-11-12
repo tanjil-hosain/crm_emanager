@@ -59,7 +59,15 @@
                             <i class="bi bi-table"></i>
                             <span>Category</span>
                         </a>
+
+                                         <li class="sidebar-menu-item">
+                        <a href="{{ route('subcategory.index') }}" class="sidebar-menu-link" id="menu-basictables"
+                            title="Basic Tables">
+                            <i class="bi bi-table"></i>
+                            <span>Subcategory</span>
+                        </a>
                     </li>
+                                        </li>
                      <li class="sidebar-menu-item">
                         <a href="{{ route('products.index') }}" class="sidebar-menu-link" id="menu-basictables"
                             title="Basic Tables">
@@ -67,11 +75,12 @@
                             <span>Product</span>
                         </a>
                     </li>
-                                         <li class="sidebar-menu-item">
-                        <a href="{{ route('subcategory.index') }}" class="sidebar-menu-link" id="menu-basictables"
+                                        </li>
+                     <li class="sidebar-menu-item">
+                        <a href="{{ route('sales.index') }}" class="sidebar-menu-link" id="menu-basictables"
                             title="Basic Tables">
                             <i class="bi bi-table"></i>
-                            <span>Subcategory</span>
+                            <span>Sales</span>
                         </a>
                     </li>
                     {{-- @can('roles') --}}
