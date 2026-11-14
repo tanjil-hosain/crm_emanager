@@ -19,15 +19,18 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-quick-action" aria-labelledby="quick-actions-dropdown">
                     <li class="dropdown-header">Quick Action Shortcuts</li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-plus"></i> New Invoice</a>
-                    </li>
                     <li><a class="dropdown-item" href="{{ route('users.create') }}"><i class="bi bi-person-plus"></i>
                             New User</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> New Product</a></li>
+                    <li><a class="dropdown-item" href="{{ route('products.create') }}"><i class="bi bi-person-fill-add"></i> New Customer</a></li>
+                     <li><a class="dropdown-item" href="{{ route('customers.create') }}"><i class="bi bi-bag-plus-fill"></i> New Product</a></li>
+                      <li><a class="dropdown-item" href="{{ route('products.create') }}"><i class="bi bi-cart-fill"></i> New Sales</a></li>
+                       <li><a class="dropdown-item" href="{{ route('sales.create') }}"><i class="bi bi-funnel-fill"></i> New Lead</a></li>
+                        <li><a class="dropdown-item" href="{{ route('role.create') }}"><i class="bi bi-people-fill"></i> New Role</a></li>
+                         <li><a class="dropdown-item" href="{{ route('permission.create') }}"><i class="bi bi-shield-lock-fill"></i> New Permission</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> System Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ route('setting.index') }}"><i class="bi bi-gear"></i> System Settings</a></li>
                 </ul>
             </div>
         </div>
@@ -102,12 +105,18 @@
                 <button class="navbar-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false" id="profile-dropdown">
                     <img src="{{ Storage::url(Auth::user()->photo) }}" alt="Profile Image" class="navbar-profile-img">
-                    <span class="navbar-profile-name d-none d-md-inline">{{Auth::user()->name}}</span>
+                    <span class="navbar-profile-name d-none d-md-inline">{{ Auth::user()->name }}</span>
                     <i class="bi bi-chevron-down navbar-profile-caret"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-profile" aria-labelledby="profile-dropdown">
                     <li class="dropdown-header">Welcome !</li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> My Account</a></li>
+                    @can('show users')
+                        <li>
+                            <a class="dropdown-item" href="{{ route('users.show', auth()->id()) }}">
+                                <i class="bi bi-person"></i> My Account
+                            </a>
+                        </li>
+                    @endcan
                     <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Settings</a></li>
                     <li><a class="dropdown-item" href="#"><i class="bi bi-lock"></i> Lock Screen</a></li>
                     <li>

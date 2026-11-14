@@ -63,8 +63,12 @@
                                         {{ \Carbon\Carbon::parse($sale->sold_at)->format('d M Y, h:i A') }}
                                     </td>
 
+
+
                                     <td>
                                         <div class="d-flex gap-1" style="white-space: nowrap;">
+
+
                                             <a href="{{ route('sales.show', $sale->id) }}" class="btn btn-sm btn-info">
                                                 <i class="bi bi-eye"></i>
                                             </a>
@@ -72,11 +76,15 @@
                                             <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-sm btn-warning">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-                                            <a href="{{ route('payments.create', ['sale_id' => $sale->id]) }}"
-                                                class="btn btn-sm btn-success">
-                                                Payment
-                                            </a>
 
+
+
+                                            @if ($sale->status == 'completed' && $sale->payment_status != 'paid')
+                                                <a href="{{ route('payments.create', ['sale_id' => $sale->id]) }}"
+                                                    class="btn btn-sm btn-success">
+                                                    Payment
+                                                </a>
+                                            @endif
 
                                             @if ($sale->status !== 'cancelled')
                                                 <form action="{{ route('sales.destroy', $sale->id) }}" method="POST"
@@ -95,6 +103,8 @@
 
                                         </div>
                                     </td>
+
+
                                 </tr>
                             @empty
                                 <tr>
@@ -108,8 +118,8 @@
                     </table>
                 </div>
 
-                <div class="mt-3">
-                    {{ $sales->links() }}
+                <div class="d-flex justify-content-center mt-4 p-2">
+                    {{ $sales->onEachSide(1)->links() }}
                 </div>
 
             </div>

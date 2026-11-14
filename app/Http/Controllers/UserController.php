@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('crm_emanager.backend.profile.index' , compact('users'));
+        return view('crm_emanager.backend.profile.index', compact('users'));
     }
 
     /**
@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function create()
     {
-       $roles= Role::all();
+        $roles = Role::all();
         return view('crm_emanager.backend.profile.create', compact('roles'));
     }
 
@@ -34,7 +34,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'role'=> 'required|exists:roles,name',
+            'role' => 'required|exists:roles,name',
             'mobile' => 'nullable|string',
             'address' => 'nullable',
             'photo' => 'nullable|image|mimes:png,jpg'
@@ -44,10 +44,10 @@ class UserController extends Controller
         $photo = null;
 
         if ($request->hasFile('photo')) {
-            $photo = uploadImage($request->file('photo') , 'uploads/users');
+            $photo = uploadImage($request->file('photo'), 'uploads/users');
         }
 
-       $user= User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
@@ -55,7 +55,7 @@ class UserController extends Controller
             'address' => $request->address,
             'photo' => $photo,
         ]);
-       
+
         $user->assignRole($request->role);
         return redirect()->route('users.index')
             ->with('success', 'User created successfully!');
@@ -66,7 +66,12 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        
+        $user = User::with('roles.permissions')->findOrFail($id);
+
+        return view(
+            'crm_emanager.backend.profile.show',
+            compact('user')
+        );
     }
 
     /**
@@ -84,7 +89,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-            $request->validate([
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'role' => 'required|exists:roles,name',
@@ -98,7 +103,7 @@ class UserController extends Controller
         $photo = $user->photo;
 
         if ($request->hasFile('photo')) {
-            $photo = uploadImage($request->file('photo') , 'uploads/users', $user->photo);
+            $photo = uploadImage($request->file('photo'), 'uploads/users', $user->photo);
         }
 
         $user->update([
@@ -123,24 +128,25 @@ class UserController extends Controller
 
         $user->delete();
         return redirect()->route('users.index')->with('success', 'Usere deleted');
-        
     }
 
-    public function trash(){
+    public function trash()
+    {
         $users = User::onlyTrashed()->latest()->get();
 
         return view('crm_emanager.backend.profile.trash', compact('users'));
     }
 
-    public function restore($id){
-        $user= User::onlyTrashed()->findOrFail($id);
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();
 
         return redirect()->route('users.trash')->with('success', 'User restored');
-
     }
 
-    public function forceDelete($id){
+    public function forceDelete($id)
+    {
         $user = User::onlyTrashed()->findOrFail($id);
 
         $user->forceDelete();

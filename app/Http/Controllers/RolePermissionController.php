@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,26 +9,36 @@ class RolePermissionController extends Controller
 {
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::with('permissions')->get();
         $permissions = Permission::all();
 
-        return view('crm_emanager.backend.role&permission.create', compact('roles', 'permissions'));
+        return view(
+            'crm_emanager.backend.role&permission.create',
+            compact('roles', 'permissions')
+        );
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'role' => 'required|exists:roles,id',
-            'permissions' => 'required|array',
-            'permissions.*' => 'exists:permissions,id',
+            'permissions' => 'nullable|array',
+            'permissions.*' => 'required|exists:permissions,id',
         ]);
 
         $role = Role::findOrFail($request->role);
 
-        $permissions = Permission::whereIn('id', $request->permissions)->get();
+        $permissions = Permission::whereIn(
+            'id',
+            $request->input('permissions', [])
+        )->get();
 
-        $role->syncPermissions($permissions);
+        // Add new permissions without removing existing permissions
+        $role->givePermissionTo($permissions);
 
-        return redirect()->back()->with('success', 'Permissions Assigned Successfully');
+        return redirect()->back()->with(
+            'success',
+            'Permissions Assigned Successfully'
+        );
     }
 }

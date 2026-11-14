@@ -44,4 +44,8 @@ class User extends Authenticatable
     public function recivedPayment(){
         return $this->hasMany(Payment::class, 'received_by');
     }
+    public function branch()
+{
+    return $this->belongsTo(Branch::class);
+}
 }

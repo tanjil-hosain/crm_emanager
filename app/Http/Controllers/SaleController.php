@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -275,5 +276,23 @@ class SaleController extends Controller
 
         return redirect()->route('sales.index')
             ->with('success', 'Sale cancelled successfully.');
+    }
+    public function invoice($id)
+    {
+        $sale = Sale::with([
+            'saleItems.product',
+            'payments',
+            'creator'
+        ])->findOrFail($id);
+
+        $paidAmount = $sale->payments->sum('amount');
+        $dueAmount = $sale->total_amount - $paidAmount;
+         $setting = Setting::first();
+         $customer = Customer::all();
+
+        return view(
+            'crm_emanager.backend.admin.sales.invoice',
+            compact('sale', 'paidAmount', 'dueAmount', 'setting', 'customer')
+        );
     }
 }

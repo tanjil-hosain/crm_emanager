@@ -11,9 +11,13 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4>Sale Details</h4>
 
+
             <div>
                 <a href="{{ route('sales.index') }}" class="btn btn-secondary">
                     Back
+                </a>
+                <a href="{{ route('sales.invoice', $sale->id) }}" class="btn btn-primary">
+                    <i class="bi bi-printer"></i> Print Invoice
                 </a>
 
                 @if ($sale->status == 'pending')
@@ -22,12 +26,21 @@
                     </a>
                 @endif
 
+                {{-- Receive Payment --}}
                 @if ($sale->status == 'completed' && $dueAmount > 0)
-                    <a href="{{ route('payments.create', ['sale_id' => $sale->id]) }}" class="btn  btn-success">
-                        Recived Payment
+                    <a href="{{ route('payments.create', ['sale_id' => $sale->id]) }}" class="btn btn-success">
+                        Receive Payment
+                    </a>
+                @endif
+
+                {{-- Return Product --}}
+                @if ($sale->status == 'completed')
+                    <a href="{{ route('sales-returns.create', ['sale_id' => $sale->id]) }}" class="btn btn-warning">
+                        Return Product
                     </a>
                 @endif
             </div>
+
         </div>
 
         {{-- Sale Information --}}
